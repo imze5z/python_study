@@ -19,6 +19,15 @@ class _MySQLConnection(dict):
     is_used = None
     connection = None
 
+class MongoPool(object):
+    def __init__(self, host, username, password):
+        uri = "mongodb://%s:%s@%s" % (quote_plus(username),
+                quote_plus(password), quote_plus(host))
+        self.mc = pymongo.MongoClient(uri)
+
+    def close(self):
+        self.mc.close()
+
 class MYSQLPool(object):
     def __init__(self, size, **kwargs):
         self._pool = []
