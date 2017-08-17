@@ -178,7 +178,8 @@ class RabbitmqCustomer(RabbitmqBase):
 
         def callback(ch, method, properties, body):
             if self.prefetch_count > 1:
-                task = _RabbitmqTask(func, (self, body), self.no_ack, ch, method, properties)
+                task = _RabbitmqTask(func, (self, body), self.no_ack, ch,
+                        method, properties)
                 task.start()
             else:
                 func(self, body)
@@ -186,7 +187,8 @@ class RabbitmqCustomer(RabbitmqBase):
                     self.ch.basic_ack(delivery_tag=self.method.delivery_tag)
 
         self.ch.basic_qos(prefetch_count=self.prefetch_count)
-        self.ch.basic_consume(callback, queue=self.task_queue, no_ack=self.no_ack)
+        self.ch.basic_consume(callback, queue=self.task_queue,
+                no_ack=self.no_ack)
         self.ch.start_consuming()
 
 
