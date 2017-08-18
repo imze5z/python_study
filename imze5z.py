@@ -2,12 +2,36 @@
 
 import random
 import string
-import xlwt
-from scrapy.selector import  Selector
-import pika
-import pymysql
-import pymongo
-import yaml
+try:
+    import xlwt
+except:
+    print('xlwt is not installed.')
+
+try:
+    from scrapy.selector import Selector
+except:
+    print('scrapy is not installed.')
+
+try:
+    import pika
+except:
+    print('pika is not installed.')
+
+try:
+    import pymysql
+except:
+    print('pymysql is not installed.')
+
+try:
+    import pymongo
+except:
+    print('pymongo is not installed.')
+
+try:
+    import yaml
+except:
+    print('pyyaml is not installed.')
+
 from threading import Thread, Lock, current_thread
 import logging
 import traceback
