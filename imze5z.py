@@ -12,6 +12,7 @@ if sys.version.startswith('2.7'):
 else:
     # TODO python3 for quote_plus
     from urllib.parse import quote_plus
+
 try:
     import xlwt
 except:
@@ -36,7 +37,6 @@ try:
     import pymongo
 except:
     print('pymongo is not installed.')
-
 try:
     import yaml
 except:
