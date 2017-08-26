@@ -20,8 +20,8 @@ class HTTP(object):
 
     def get(self,
             url,
-            headers,
-            cookies,
+            headers=None,
+            cookies=None,
             timeout=30,
             verify=False,
             proxies=None):
@@ -48,8 +48,8 @@ class HTTP(object):
 
     def post(self,
              url,
-             headers,
-             cookies,
+             headers=None,
+             cookies=None,
              timeout=30,
              data={},
              verify=False,
