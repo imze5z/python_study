@@ -69,9 +69,11 @@ class RabbitmqCustomer(RabbitmqBase):
     def serv_forever(self, func):
         try:
             if self.task_queue:
-                self.ch.queue_declare(queue=self.task_queue, durable=self.durable)
+                self.ch.queue_declare(
+                    queue=self.task_queue, durable=self.durable)
             if self.store_queue:
-                self.ch.queue_declare(queue=self.store_queue, durable=self.durable)
+                self.ch.queue_declare(
+                    queue=self.store_queue, durable=self.durable)
         except Exception as e:
             print(traceback.format_exc())
             raise e
@@ -85,7 +87,8 @@ class RabbitmqCustomer(RabbitmqBase):
                 else:
                     func(self, body)
                     if not self.no_ack:
-                        self.ch.basic_ack(delivery_tag=self.method.delivery_tag)
+                        self.ch.basic_ack(
+                            delivery_tag=self.method.delivery_tag)
             except Exception as e:
                 print(traceback.format_exc())
                 raise e
@@ -120,7 +123,8 @@ class RabbitmqProducter(RabbitmqBase):
     def produce(self, func):
         try:
             if not self.task_queue:
-                self.ch.queue_declare(queue=self.task_queue, durable=self.durable)
+                self.ch.queue_declare(
+                    queue=self.task_queue, durable=self.durable)
             func(self)
         except Exception as e:
             print(traceback.format_exc())
