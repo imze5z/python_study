@@ -54,9 +54,13 @@ class MYSQLPool(object):
                     affected = cursor.rowcount
                     return affected
         except:
-            print(traceback.format_exc())
+            err = traceback.format_exc()
+            print(err)
             if 'insert' in tmp or 'delete' in tmp or 'update' in tmp:
                 conn['connection'].rollback()
+            if 'MySQL Connection not available' in err:
+                conn['connection'] = _MySQLConnection(
+                    is_used=False, connection=pymysql.Connection(**kwargs)))
         finally:
             cursor.close()
             conn['is_used'] = False
