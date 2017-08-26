@@ -2,7 +2,7 @@
 
 import requests
 from collections import OrderDict
-from requests.utils iport dict_from_cookiejar
+from requests.utils import dict_from_cookiejar
 
 
 class HTTP(object):
