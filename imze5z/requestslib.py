@@ -10,6 +10,10 @@ class HTTP(object):
         if session:
             self.session = requests.Session()
 
+    def close(self):
+        if self.session:
+            self.session.close()
+
     def get_session_cookie():
         if session:
             return dict_from_cookiejar(self.session.cookies)
