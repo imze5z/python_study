@@ -1,6 +1,7 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 from PyPDF2 import PdfFileWriter, PdfFileReader
+import os
 
 
 def create_watermark(f_jpg, pdf_out):
@@ -12,8 +13,7 @@ def create_watermark(f_jpg, pdf_out):
 
     c = canvas.Canvas(f_pdf, pagesize=(w_pdf, h_pdf))
     c.setFillAlpha(0.5)  # 设置透明度
-    #print(c.drawImage(f_jpg, 5 * cm, 5 * cm, 5 * cm, 5 * cm))  # 这里的单位是物理尺寸
-    c.save()
+    c.drawImage(f_jpg, 5 * cm, 5 * cm, 5 * cm, 5 * cm)  # 这里的单位是物理尺寸 c.save()
 
 
 def add_watermark(pdf_file_in, pdf_file_mark, pdf_file_out):
@@ -52,7 +52,18 @@ def add_watermark(pdf_file_in, pdf_file_mark, pdf_file_out):
     output_stream.close()
 
 
+def compress(pdf_in, pdf_output):
+    cmd = 'gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -sOutputFile=%s %s'
+    cmd = cmd % (pdf_output, pdf_in)
+    os.system(cmd)
+
+
 if __name__ == '__main__':
-    pdf_out = '../res/供应链图片.pdf'
-    create_watermark('../res/猎芯供应链.png', pdf_out)
-    add_watermark('../res/被盖章的.pdf', pdf_out, '../res/输出.pdf')
+    # 水印pdf文件名
+    pdf_water = '../res/供应链图片.pdf'
+    pdf_in = '../res/被盖章的.pdf'
+    pdf_out = '../res/输出.pdf'
+    pdf_compressed = '../res/输出_压缩的.pdf'
+    create_watermark('../res/猎芯供应链.png', pdf_water)
+    add_watermark(pdf_in, pdf_water, pdf_out)
+    compress(pdf_out, pdf_compressed)
