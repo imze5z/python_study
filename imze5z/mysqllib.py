@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-import pymysql
-from threading import Thread, Lock, current_thread
 import logging
 import traceback
+from threading import Lock, current_thread
+
+import pymysql
 
 
 class _MySQLConnection(dict):

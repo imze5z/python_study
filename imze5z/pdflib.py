@@ -1,7 +1,8 @@
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import cm
-from PyPDF2 import PdfFileWriter, PdfFileReader
 import os
+
+from PyPDF2 import PdfFileWriter, PdfFileReader
+from reportlab.lib.units import cm
+from reportlab.pdfgen import canvas
 
 
 def create_watermark(f_jpg, pdf_out):
